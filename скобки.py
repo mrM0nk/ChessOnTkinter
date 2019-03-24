@@ -1,5 +1,3 @@
-
-
 import time
 n = int(input("Напечатайте_число_n "))
 start = time.time()
