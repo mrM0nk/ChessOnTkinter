@@ -12,7 +12,7 @@ def инициализация_интерфейса():
         # ekranY = 768
         окно.config(width=ekranX * 9 // 10, height=ekranY * 9 // 10, background="#CFFBA8")
         окно.title("Working Tkinter")
-        окно.geometry("+50+0")  # !!!
+        окно.geometry("{}x{}+{}+{}".format(ekranX * 9 // 10, ekranY * 9 // 10, ekranX // 30, ekranY // 80))
         окно.resizable(0, 0)
         return окно
 
@@ -38,7 +38,7 @@ def инициализация_интерфейса():
 
     def расчет_координат(переменная_ширины_экрана):
         ekranX = (окно.winfo_screenwidth())
-        клетка = переменная_ширины_экрана // 12
+        клетка = переменная_ширины_экрана // 11
         отступ_x = ekranX * 9 / 20 - клетка * 4
         отступ_y = клетка * 3 // 2
         return отступ_x, отступ_y, клетка
