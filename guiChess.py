@@ -17,8 +17,6 @@ def инициализация_интерфейса():
         окно = Tk()
         ekranX = (окно.winfo_screenwidth())
         ekranY = (окно.winfo_screenheight())
-        # ekranX = 1366
-        # ekranY = 768
         окно.config(width=ekranX * 9 // 10, height=ekranY * 9 // 10, background="#CFFBA8")
         окно.title("Chess")
         окно.geometry("{}x{}+{}+{}".format(ekranX * 9 // 10, ekranY * 9 // 10, ekranX // 30, 0))
