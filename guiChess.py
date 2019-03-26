@@ -9,9 +9,18 @@ import time
 отступ_y = None
 клетка = None
 фигуры = None
-
+язык_игры = None
 
 def инициализация_интерфейса():
+    def настройки_игры():
+        global язык_игры
+        язык_игры = input('Select number your language? 1. Русский, 2. English: ')
+        if язык_игры == '1':
+            фон_игры = input('Выберите номер фона? 1. Природа, 2. Шахматы, 3. Космос: ')
+        else:
+            фон_игры = input('Select background number? 1. Nature, 2. Chess, 3. Space: ')
+        return фон_игры
+
     def создание_окна():
         global окно
         окно = Tk()
@@ -22,13 +31,18 @@ def инициализация_интерфейса():
         окно.geometry("{}x{}+{}+{}".format(ekranX * 9 // 10, ekranY * 9 // 10, ekranX // 30, 0))
         окно.resizable(0, 0)
 
-    def отрисовка_холста():
+    def отрисовка_холста(фон_игры):
         global холст
         ekranX = (окно.winfo_screenwidth())
         ekranY = (окно.winfo_screenheight())
         холст = Canvas(width=ekranX * 9 // 10, height=ekranY * 9 // 10)
         холст.pack(fill=BOTH, expand=True)
-        фон = Image.open('images\image2.jpg')
+        if фон_игры == '1':
+            фон = Image.open('images\image.jpg')
+        elif фон_игры == '2':
+            фон = Image.open('images\image2.jpg')
+        else:
+            фон = Image.open('images\image3.jpg')
         фон.thumbnail((ekranX, ekranY), Image.ANTIALIAS)
         холст.image = ImageTk.PhotoImage(фон)
         холст.create_image(0, 0, image=холст.image, anchor='nw')
@@ -49,8 +63,9 @@ def инициализация_интерфейса():
         отступ_x = ekranX * 9 / 20 - клетка * 4
         отступ_y = клетка * 3 // 2
 
+    фон_игры = настройки_игры()
     создание_окна()
-    отрисовка_холста()
+    отрисовка_холста(фон_игры)
     переменная_ширины_экрана = ориентация_экрана()
     расчет_координат(переменная_ширины_экрана)
 
@@ -276,16 +291,24 @@ def перемести_фигуру(короткий_путь):
 
 
 def ввод_координат_коню():
-    холст.create_text(отступ_x + клетка * 4, отступ_y - клетка // 2.2, font=("Purisa", клетка // 3),
-                      text="Наведите мышкой на стартовую клетку", fill="green")
+    if язык_игры == '1':
+        холст.create_text(отступ_x + клетка * 4, отступ_y - клетка // 2.2, font=("Purisa", клетка // 3),
+                          text="Наведите мышкой на стартовую клетку", fill="green")
+    else:
+        холст.create_text(отступ_x + клетка * 4, отступ_y - клетка // 2.2, font=("Purisa", клетка // 3),
+                          text="Mouse over the starting cell", fill="green")
     x_мыши, y_мыши = get_mouse()
     старт_x = x_мыши
     старт_y = y_мыши
     холст.create_rectangle(отступ_x + старт_x * клетка - клетка, отступ_y - старт_y * клетка + клетка * 8,
                            отступ_x + старт_x * клетка, отступ_y - старт_y * клетка + клетка * 9, width=5,
                            outline="green")
-    холст.create_text(отступ_x + клетка * 4, отступ_y + клетка * 17 // 2, font=("Purisa", клетка // 3),
-                      text="Наведите мышкой на финишную клетку", fill="red")
+    if язык_игры == '1':
+        холст.create_text(отступ_x + клетка * 4, отступ_y + клетка * 17 // 2, font=("Purisa", клетка // 3),
+                          text="Наведите мышкой на финишную клетку", fill="red")
+    else:
+        холст.create_text(отступ_x + клетка * 4, отступ_y + клетка * 17 // 2, font=("Purisa", клетка // 3),
+                          text="Mouse over the finish cell", fill="red")
     x_мыши, y_мыши = get_mouse()
     финиш_х = x_мыши
     финиш_у = y_мыши
