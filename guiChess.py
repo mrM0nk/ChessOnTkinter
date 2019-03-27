@@ -67,114 +67,115 @@ def инициализация_интерфейса():
         отступ_x = ekranX * 9 / 20 - клетка * 4
         отступ_y = клетка * 3 // 2
 
+    def импорт_изображений():
+        global фигуры
+        фигуры = {}
+        pilImage = Image.open("images\ПешкаЧ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        ПешкаЧ = ImageTk.PhotoImage(pilImage)
+        фигуры['ПешкаЧ'] = ПешкаЧ
+        pilImage = Image.open("images\ПешкаБ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        ПешкаБ = ImageTk.PhotoImage(pilImage)
+        фигуры['ПешкаБ'] = ПешкаБ
+        pilImage = Image.open("images\ЛадьяЧ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        ЛадьяЧ = ImageTk.PhotoImage(pilImage)
+        фигуры['ЛадьяЧ'] = ЛадьяЧ
+        pilImage = Image.open("images\ЛадьяБ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        ЛадьяБ = ImageTk.PhotoImage(pilImage)
+        фигуры['ЛадьяБ'] = ЛадьяБ
+        pilImage = Image.open("images\КоньЧ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        КоньЧ = ImageTk.PhotoImage(pilImage)
+        фигуры['КоньЧ'] = КоньЧ
+        pilImage = Image.open("images\КоньБ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        КоньБ = ImageTk.PhotoImage(pilImage)
+        фигуры['КоньБ'] = КоньБ
+        pilImage = Image.open("images\СлонЧ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        СлонЧ = ImageTk.PhotoImage(pilImage)
+        фигуры['СлонЧ'] = СлонЧ
+        pilImage = Image.open("images\СлонБ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        СлонБ = ImageTk.PhotoImage(pilImage)
+        фигуры['СлонБ'] = СлонБ
+        pilImage = Image.open("images\ФерзьЧ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        ФерзьЧ = ImageTk.PhotoImage(pilImage)
+        фигуры['ФерзьЧ'] = ФерзьЧ
+        pilImage = Image.open("images\ФерзьБ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        ФерзьБ = ImageTk.PhotoImage(pilImage)
+        фигуры['ФерзьБ'] = ФерзьБ
+        pilImage = Image.open("images\КорольЧ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        КорольЧ = ImageTk.PhotoImage(pilImage)
+        фигуры['КорольЧ'] = КорольЧ
+        pilImage = Image.open("images\КорольБ.png")
+        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+        КорольБ = ImageTk.PhotoImage(pilImage)
+        фигуры['КорольБ'] = КорольБ
+
+    def отрисовка_доски():
+        цветовая_палитра = {1: ["#E8E8E8", "#B0B0B0"], 2: ["#C9862F", "#6F1203"], 3: ["#298F1E", "#282B1E"]}   #10110C
+        светлый_оттенок, темный_оттенок = цветовая_палитра.get(цветовая_схема)
+        def отрисовка_полотна_доски():
+            холст.update()
+            time.sleep(1)
+            холст.create_rectangle(отступ_x - клетка * 3 // 4, отступ_y - клетка * 3 // 4,
+                                   отступ_x + клетка * 8 + клетка * 3 // 4, отступ_y + клетка * 8 + клетка * 3 // 4,
+                                   fill=светлый_оттенок)
+            холст.create_line(отступ_x - клетка * 3 // 4, отступ_y + клетка * 3 // 4 + клетка * 8, отступ_x,
+                              отступ_y + клетка * 8, width=2, fill="#291F1E")
+            холст.create_line(отступ_x - клетка * 3 // 4, отступ_y - клетка * 3 // 4, отступ_x, отступ_y, width=2,
+                              fill="#291F1E")
+            холст.create_line(отступ_x + клетка * 8, отступ_y, отступ_x + клетка * 3 // 4 + клетка * 8,
+                              отступ_y - клетка * 3 // 4, width=2, fill="#291F1E")
+            холст.create_line(отступ_x + клетка * 8, отступ_y + клетка * 8, отступ_x + клетка * 3 // 4 + клетка * 8,
+                              отступ_y + клетка * 3 // 4 + клетка * 8, width=2, fill="#291F1E")
+            холст.create_rectangle(отступ_x - клетка * 3 // 4, отступ_y - клетка * 3 // 4,
+                                   отступ_x + клетка * 8 + клетка * 3 // 4, отступ_y + клетка * 8 + клетка * 3 // 4,
+                                   width=5, outline="#770E89")
+            холст.create_rectangle(отступ_x, отступ_y, отступ_x + клетка * 8, отступ_y + клетка * 8, width=7)
+
+        def отрисовка_клеток():
+            for y in range(8):
+                for x in range(8):
+                    if (x + y) % 2 == 0:
+                        холст.create_rectangle(отступ_x + x * клетка, отступ_y + y * клетка, отступ_x + x * клетка + клетка,
+                                               отступ_y + y * клетка + клетка, fill=светлый_оттенок)
+                    else:
+                        холст.create_rectangle(отступ_x + x * клетка, отступ_y + y * клетка, отступ_x + x * клетка + клетка,
+                                               отступ_y + y * клетка + клетка, fill=темный_оттенок)
+
+        def отрисовка_координат():
+            ListY = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+            iy = - 1
+            for x in range(0, 8):
+                iy = iy + 1
+                холст.create_text(отступ_x + клетка * 2 // 4 + клетка * x, отступ_y + клетка * 8 + клетка * 1 // 4,
+                                  text=ListY[iy], fill="black")
+            k_podpisX = 9
+            for y in range(0, 8):
+                k_podpisX = k_podpisX - 1
+                холст.create_text(отступ_x - клетка * 1 // 4, отступ_y + клетка * y + клетка * 2 // 4, text=k_podpisX,
+                                  fill="black")
+
+        отрисовка_полотна_доски()
+        отрисовка_клеток()
+        отрисовка_координат()
+
+
     фон_игры = настройки_игры()
     создание_окна()
     отрисовка_холста(фон_игры)
     переменная_ширины_экрана = ориентация_экрана()
     расчет_координат(переменная_ширины_экрана)
-
-
-def импорт_изображений():
-    global фигуры
-    фигуры = {}
-    pilImage = Image.open("images\ПешкаЧ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    ПешкаЧ = ImageTk.PhotoImage(pilImage)
-    фигуры['ПешкаЧ'] = ПешкаЧ
-    pilImage = Image.open("images\ПешкаБ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    ПешкаБ = ImageTk.PhotoImage(pilImage)
-    фигуры['ПешкаБ'] = ПешкаБ
-    pilImage = Image.open("images\ЛадьяЧ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    ЛадьяЧ = ImageTk.PhotoImage(pilImage)
-    фигуры['ЛадьяЧ'] = ЛадьяЧ
-    pilImage = Image.open("images\ЛадьяБ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    ЛадьяБ = ImageTk.PhotoImage(pilImage)
-    фигуры['ЛадьяБ'] = ЛадьяБ
-    pilImage = Image.open("images\КоньЧ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    КоньЧ = ImageTk.PhotoImage(pilImage)
-    фигуры['КоньЧ'] = КоньЧ
-    pilImage = Image.open("images\КоньБ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    КоньБ = ImageTk.PhotoImage(pilImage)
-    фигуры['КоньБ'] = КоньБ
-    pilImage = Image.open("images\СлонЧ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    СлонЧ = ImageTk.PhotoImage(pilImage)
-    фигуры['СлонЧ'] = СлонЧ
-    pilImage = Image.open("images\СлонБ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    СлонБ = ImageTk.PhotoImage(pilImage)
-    фигуры['СлонБ'] = СлонБ
-    pilImage = Image.open("images\ФерзьЧ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    ФерзьЧ = ImageTk.PhotoImage(pilImage)
-    фигуры['ФерзьЧ'] = ФерзьЧ
-    pilImage = Image.open("images\ФерзьБ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    ФерзьБ = ImageTk.PhotoImage(pilImage)
-    фигуры['ФерзьБ'] = ФерзьБ
-    pilImage = Image.open("images\КорольЧ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    КорольЧ = ImageTk.PhotoImage(pilImage)
-    фигуры['КорольЧ'] = КорольЧ
-    pilImage = Image.open("images\КорольБ.png")
-    pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-    КорольБ = ImageTk.PhotoImage(pilImage)
-    фигуры['КорольБ'] = КорольБ
-
-
-def отрисовка_доски():
-    цветовая_палитра = {1: ["#E8E8E8", "#B0B0B0"], 2: ["#C9862F", "#6F1203"], 3: ["#298F1E", "#282B1E"]}   #10110C
-    светлый_оттенок, темный_оттенок = цветовая_палитра.get(цветовая_схема)
-    def отрисовка_полотна_доски():
-        холст.update()
-        time.sleep(1)
-        холст.create_rectangle(отступ_x - клетка * 3 // 4, отступ_y - клетка * 3 // 4,
-                               отступ_x + клетка * 8 + клетка * 3 // 4, отступ_y + клетка * 8 + клетка * 3 // 4,
-                               fill=светлый_оттенок)
-        холст.create_line(отступ_x - клетка * 3 // 4, отступ_y + клетка * 3 // 4 + клетка * 8, отступ_x,
-                          отступ_y + клетка * 8, width=2, fill="#291F1E")
-        холст.create_line(отступ_x - клетка * 3 // 4, отступ_y - клетка * 3 // 4, отступ_x, отступ_y, width=2,
-                          fill="#291F1E")
-        холст.create_line(отступ_x + клетка * 8, отступ_y, отступ_x + клетка * 3 // 4 + клетка * 8,
-                          отступ_y - клетка * 3 // 4, width=2, fill="#291F1E")
-        холст.create_line(отступ_x + клетка * 8, отступ_y + клетка * 8, отступ_x + клетка * 3 // 4 + клетка * 8,
-                          отступ_y + клетка * 3 // 4 + клетка * 8, width=2, fill="#291F1E")
-        холст.create_rectangle(отступ_x - клетка * 3 // 4, отступ_y - клетка * 3 // 4,
-                               отступ_x + клетка * 8 + клетка * 3 // 4, отступ_y + клетка * 8 + клетка * 3 // 4,
-                               width=5, outline="#770E89")
-        холст.create_rectangle(отступ_x, отступ_y, отступ_x + клетка * 8, отступ_y + клетка * 8, width=7)
-
-    def отрисовка_клеток():
-        for y in range(8):
-            for x in range(8):
-                if (x + y) % 2 == 0:
-                    холст.create_rectangle(отступ_x + x * клетка, отступ_y + y * клетка, отступ_x + x * клетка + клетка,
-                                           отступ_y + y * клетка + клетка, fill=светлый_оттенок)
-                else:
-                    холст.create_rectangle(отступ_x + x * клетка, отступ_y + y * клетка, отступ_x + x * клетка + клетка,
-                                           отступ_y + y * клетка + клетка, fill=темный_оттенок)
-
-    def отрисовка_координат():
-        ListY = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-        iy = - 1
-        for x in range(0, 8):
-            iy = iy + 1
-            холст.create_text(отступ_x + клетка * 2 // 4 + клетка * x, отступ_y + клетка * 8 + клетка * 1 // 4,
-                              text=ListY[iy], fill="black")
-        k_podpisX = 9
-        for y in range(0, 8):
-            k_podpisX = k_podpisX - 1
-            холст.create_text(отступ_x - клетка * 1 // 4, отступ_y + клетка * y + клетка * 2 // 4, text=k_podpisX,
-                              fill="black")
-
-    отрисовка_полотна_доски()
-    отрисовка_клеток()
-    отрисовка_координат()
+    импорт_изображений()
+    отрисовка_доски()
 
 
 def отрисовка_шахмат():
@@ -326,8 +327,6 @@ def ввод_координат_коню():
 
 if __name__ == '__main__':
     инициализация_интерфейса()
-    импорт_изображений()
-    отрисовка_доски()
 
 
     окно.mainloop()
