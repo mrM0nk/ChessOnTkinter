@@ -19,10 +19,10 @@ def инициализация_интерфейса():
         язык_игры = input('Select number your language? 1. Русский, 2. English: ')
         if язык_игры == '1':
             фон_игры = input('Выберите номер фона: 1. Природа, 2. Шахматы, 3. Космос: ')
-            цветовая_схема = int(input('Выберите цветовую схему доски: 1. Светлая, 2. Обычная, 3. Темно-зеленая: '))
+            цветовая_схема = int(input('Выберите цветовую схему доски: 1. Светлая, 2. Обычная, 3. Гламур: '))
         else:
             фон_игры = input('Select background number: 1. Nature, 2. Chess, 3. Space: ')
-            цветовая_схема = int(input('Choose board color scheme: 1. Light, 2. Ordinary, 3. Dark-green: '))
+            цветовая_схема = int(input('Choose board color scheme: 1. Light, 2. Ordinary, 3. Glamour: '))
         return фон_игры
 
     def создание_окна():
@@ -42,11 +42,11 @@ def инициализация_интерфейса():
         холст = Canvas(width=ekranX * 9 // 10, height=ekranY * 9 // 10)
         холст.pack(fill=BOTH, expand=True)
         if фон_игры == '1':
-            фон = Image.open('images\image.jpg')
+            фон = Image.open('background\image.jpg')
         elif фон_игры == '2':
-            фон = Image.open('images\image2.jpg')
+            фон = Image.open('background\image2.jpg')
         else:
-            фон = Image.open('images\image3.jpg')
+            фон = Image.open('background\image3.jpg')
         фон.thumbnail((ekranX, ekranY), Image.ANTIALIAS)
         холст.image = ImageTk.PhotoImage(фон)
         холст.create_image(0, 0, image=холст.image, anchor='nw')
@@ -120,7 +120,7 @@ def инициализация_интерфейса():
         фигуры['КорольБ'] = КорольБ
 
     def отрисовка_доски():
-        цветовая_палитра = {1: ["#E8E8E8", "#B0B0B0"], 2: ["#C9862F", "#6F1203"], 3: ["#298F1E", "#282B1E"]}   #10110C
+        цветовая_палитра = {1: ["#E8E8E8", "#B0B0B0"], 2: ["#C9862F", "#6F1203"], 3: ["#FFC4D7", "#6A7250"]}
         светлый_оттенок, темный_оттенок = цветовая_палитра.get(цветовая_схема)
         def отрисовка_полотна_доски():
             холст.update()
@@ -217,7 +217,7 @@ def отрисовка_шахмат():
 
 
 def подсветить_клетки(коорд_свободных_клеток):
-    палитра_подсветки = [0, '#F7C8F3', '#E1C191', '#5BDA4E']
+    палитра_подсветки = [0, '#F7C8F3', '#E1C191', '#E8E8E8']
     for i in range(len(коорд_свободных_клеток)):
         x, y = коорд_свободных_клеток[i]
         холст.create_rectangle(отступ_x + x * клетка - клетка, отступ_y - y * клетка + клетка * 8,
@@ -256,7 +256,7 @@ def get_mouse():
 
 
 def перемести_фигуру(короткий_путь):
-    палитра_подсветки = [0, '#F7C8F3', '#E1C191', '#5BDA4E']
+    палитра_подсветки = [0, '#F7C8F3', '#E1C191', '#E8E8E8']
     x, y = короткий_путь[0]
     time.sleep(1 / 2)
     холст.update()
