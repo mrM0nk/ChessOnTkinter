@@ -30,9 +30,9 @@ def инициализация_интерфейса():
         окно = Tk()
         ekranX = (окно.winfo_screenwidth())
         ekranY = (окно.winfo_screenheight())
-        окно.config(width=ekranX * 9 // 10, height=ekranY * 9 // 10, background="#CFFBA8")
+#        окно.config(width=ekranX * 9 // 10, height=ekranY * 9 // 10, background="#CFFBA8")
         окно.title("Chess")
-        окно.geometry("{}x{}+{}+{}".format(ekranX * 9 // 10, ekranY * 9 // 10, ekranX // 30, 0))
+        окно.geometry("{}x{}+{}+{}".format(ekranX * 9 // 10, ekranY * 9 // 10, (ekranX - (ekranX * 9 // 10)) // 2, 0))
         окно.resizable(0, 0)
 
     def отрисовка_холста(фон_игры):
