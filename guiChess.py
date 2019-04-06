@@ -1,4 +1,4 @@
-from tkinter import Tk, Canvas, BOTH
+from tkinter import Tk, Canvas, BOTH, Frame
 from PIL import ImageTk, Image
 import time
 
@@ -13,7 +13,7 @@ import time
 цветовая_схема = None
 
 
-def инициализация_интерфейса():
+def инициализация_интерфейса(info_panel):
     def настройки_игры():
         global язык_игры, цветовая_схема
         язык_игры = input('Select number your language? 1. Русский, 2. English: ')
@@ -35,11 +35,23 @@ def инициализация_интерфейса():
         окно.geometry("{}x{}+{}+{}".format(ekranX * 9 // 10, ekranY * 9 // 10, (ekranX - (ekranX * 9 // 10)) // 2, 0))
         окно.resizable(0, 0)
 
-    def отрисовка_холста(фон_игры):
-        global холст
+    def отрисовка_холста(фон_игры, info_panel = False):
+        global холст, контейнер1, контейнер2
         ekranX = (окно.winfo_screenwidth())
         ekranY = (окно.winfo_screenheight())
-        холст = Canvas(width=ekranX * 9 // 10, height=ekranY * 9 // 10)
+
+        контейнер1 = Frame(master=окно)
+
+        if not info_panel:
+            контейнер1.place(x=0, y=0, width=ekranX * 9 // 10, height=ekranY * 9 // 10)
+
+        if info_panel:
+            ширина_информационной_панели = ekranX // 10
+            контейнер1.place(x=0, y=0, width=ekranX * 9 // 10 - ширина_информационной_панели, height=ekranY * 9 // 10)
+            контейнер2 = Frame(master = окно, background = "#CFFBA8")
+            контейнер2.place(x = ekranX * 9 // 10 - ширина_информационной_панели, y = 0, width = ширина_информационной_панели, height = ekranY * 9 // 10)
+
+        холст = Canvas(master=контейнер1)
         холст.pack(fill=BOTH, expand=True)
         if фон_игры == '1':
             фон = Image.open('background\image.jpg')
@@ -171,7 +183,7 @@ def инициализация_интерфейса():
 
     фон_игры = настройки_игры()
     создание_окна()
-    отрисовка_холста(фон_игры)
+    отрисовка_холста(фон_игры, info_panel)
     переменная_ширины_экрана = ориентация_экрана()
     расчет_координат(переменная_ширины_экрана)
     импорт_изображений()
@@ -378,7 +390,7 @@ def перемести_фигуру__по_доске(короткий_путь):
 
 
 if __name__ == '__main__':
-    инициализация_интерфейса()
+    инициализация_интерфейса(info_panel = True)
 
 
     окно.mainloop()
