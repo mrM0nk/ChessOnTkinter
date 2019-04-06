@@ -127,21 +127,22 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
 
 
         def отрисовка_координат():
-            ListY = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-            iy = - 1
+            координаты = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+            ix = - 1
             for x in range(0, 8):
-                iy = iy + 1
+                ix = ix + 1
                 холст.create_text(отступ_x + клетка * 2 // 4 + клетка * x, отступ_y + клетка * 8 + клетка * 1 // 4,
-                                  text=ListY[iy], fill="black")
-            k_podpisX = 9
+                                  text=координаты[ix], fill="black")
+            k_podpisY = 9
             for y in range(0, 8):
-                k_podpisX = k_podpisX - 1
-                холст.create_text(отступ_x - клетка * 1 // 4, отступ_y + клетка * y + клетка * 2 // 4, text=k_podpisX,
+                k_podpisY = k_podpisY - 1
+                холст.create_text(отступ_x - клетка * 1 // 4, отступ_y + клетка * y + клетка * 2 // 4, text=k_podpisY,
                                   fill="black")
 
         отрисовка_полотна_доски()
         отрисовка_клеток()
         отрисовка_координат()
+
 
     фон_игры = 2
     if ask_for_change_settings:
@@ -161,32 +162,32 @@ def отрисовка_шахмат():
 
 
     def отрисовка_черных_шахмат():
-        List = ('ЛадьяЧ', 'КоньЧ', 'СлонЧ', 'ФерзьЧ', 'КорольЧ', 'СлонЧ', 'КоньЧ', 'ЛадьяЧ')
+        список_фигур = ('ЛадьяЧ', 'КоньЧ', 'СлонЧ', 'ФерзьЧ', 'КорольЧ', 'СлонЧ', 'КоньЧ', 'ЛадьяЧ')
         b = 0
         for x in range(8):
             imagesprite = холст.create_image(отступ_x + x * клетка + клетка // 2, отступ_y + клетка * 3 // 2,
                                              image=фигуры.get('ПешкаЧ'))
             time.sleep(1 / 6)
             холст.update()
-        for i in range(len(List)):
+        for i in range(len(список_фигур)):
             imagesprite = холст.create_image(отступ_x + клетка // 2 + клетка * b, отступ_y + клетка // 2,
-                                             image=фигуры.get(List[b]))
+                                             image=фигуры.get(список_фигур[b]))
             time.sleep(1 / 4)
             холст.update()
             b = b + 1
 
 
     def отрисовка_белых_шахмат():
-        List = ('ЛадьяБ', 'КоньБ', 'СлонБ', 'ФерзьБ', 'КорольБ', 'СлонБ', 'КоньБ', 'ЛадьяБ')
+        список_фигур = ('ЛадьяБ', 'КоньБ', 'СлонБ', 'ФерзьБ', 'КорольБ', 'СлонБ', 'КоньБ', 'ЛадьяБ')
         b = 0
         for x in range(8):
             imagesprite = холст.create_image(отступ_x + x * клетка + клетка // 2, отступ_y + 6 * клетка + клетка // 2,
                                              image=фигуры.get('ПешкаБ'))
             time.sleep(1 / 6)
             холст.update()
-        for i in range(len(List)):
+        for i in range(len(список_фигур)):
             imagesprite = холст.create_image(отступ_x + клетка // 2 + клетка * b, отступ_y + клетка * 15 // 2,
-                                             image=фигуры.get(List[b]))
+                                             image=фигуры.get(список_фигур[b]))
             time.sleep(1 / 4)
             холст.update()
             b = b + 1
