@@ -82,54 +82,12 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
     def импорт_изображений():
         global фигуры
         фигуры = {}
-        pilImage = Image.open("images\ПешкаЧ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        ПешкаЧ = ImageTk.PhotoImage(pilImage)
-        фигуры['ПешкаЧ'] = ПешкаЧ
-        pilImage = Image.open("images\ПешкаБ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        ПешкаБ = ImageTk.PhotoImage(pilImage)
-        фигуры['ПешкаБ'] = ПешкаБ
-        pilImage = Image.open("images\ЛадьяЧ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        ЛадьяЧ = ImageTk.PhotoImage(pilImage)
-        фигуры['ЛадьяЧ'] = ЛадьяЧ
-        pilImage = Image.open("images\ЛадьяБ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        ЛадьяБ = ImageTk.PhotoImage(pilImage)
-        фигуры['ЛадьяБ'] = ЛадьяБ
-        pilImage = Image.open("images\КоньЧ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        КоньЧ = ImageTk.PhotoImage(pilImage)
-        фигуры['КоньЧ'] = КоньЧ
-        pilImage = Image.open("images\КоньБ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        КоньБ = ImageTk.PhotoImage(pilImage)
-        фигуры['КоньБ'] = КоньБ
-        pilImage = Image.open("images\СлонЧ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        СлонЧ = ImageTk.PhotoImage(pilImage)
-        фигуры['СлонЧ'] = СлонЧ
-        pilImage = Image.open("images\СлонБ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        СлонБ = ImageTk.PhotoImage(pilImage)
-        фигуры['СлонБ'] = СлонБ
-        pilImage = Image.open("images\ФерзьЧ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        ФерзьЧ = ImageTk.PhotoImage(pilImage)
-        фигуры['ФерзьЧ'] = ФерзьЧ
-        pilImage = Image.open("images\ФерзьБ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        ФерзьБ = ImageTk.PhotoImage(pilImage)
-        фигуры['ФерзьБ'] = ФерзьБ
-        pilImage = Image.open("images\КорольЧ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        КорольЧ = ImageTk.PhotoImage(pilImage)
-        фигуры['КорольЧ'] = КорольЧ
-        pilImage = Image.open("images\КорольБ.png")
-        pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
-        КорольБ = ImageTk.PhotoImage(pilImage)
-        фигуры['КорольБ'] = КорольБ
+        список_фигур = ('ЛадьяЧ', 'КоньЧ', 'СлонЧ', 'ФерзьЧ', 'КорольЧ', 'СлонЧ', 'КоньЧ', 'ЛадьяЧ', 'ПешкаЧ', 'ЛадьяБ',
+                        'КоньБ', 'СлонБ', 'ФерзьБ', 'КорольБ', 'СлонБ', 'КоньБ', 'ЛадьяБ', 'ПешкаБ')
+        for фигура in список_фигур:
+            pilImage = Image.open("images\{}.png".format(фигура))
+            pilImage.thumbnail((клетка, клетка), Image.ANTIALIAS)
+            фигуры['{}'.format(фигура)] = ImageTk.PhotoImage(pilImage)
 
 
     def отрисовка_доски():
