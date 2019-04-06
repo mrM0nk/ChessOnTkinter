@@ -52,12 +52,7 @@ def инициализация_интерфейса(info_panel):
             контейнер2.place(x = ekranX * 9 // 10 - ширина_информационной_панели, y = 0, width = ширина_информационной_панели, height = ekranY * 9 // 10)
         холст = Canvas(master=контейнер1)
         холст.pack(fill=BOTH, expand=True)
-        if фон_игры == '1':
-            фон = Image.open('background\image.jpg')
-        elif фон_игры == '2':
-            фон = Image.open('background\image2.jpg')
-        else:
-            фон = Image.open('background\image3.jpg')
+        фон = Image.open('background\image{}.jpg'.format(фон_игры))
         фон.thumbnail((ekranX, ekranY), Image.ANTIALIAS)
         холст.image = ImageTk.PhotoImage(фон)
         холст.create_image(0, 0, image=холст.image, anchor='nw')
