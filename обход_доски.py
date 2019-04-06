@@ -55,7 +55,7 @@ def обход_доски( старт_x, старт_y, type_figure = 1):
 
 
 if __name__ == '__main__':
-    gui.инициализация_интерфейса(info_panel = True)
+    gui.инициализация_интерфейса(info_panel = True, ask_for_change_settings = False)
     старт_x = int(input('Введите координату X: '))
     старт_y = int(input('Введите координату Y: '))
     пройденные_клетки = обход_доски(старт_x, старт_y)

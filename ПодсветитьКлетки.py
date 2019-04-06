@@ -91,7 +91,7 @@ def свободные_клетки(координата_x, координата
 
 
 if __name__ == '__main__':
-    gui.инициализация_интерфейса(info_panel = True)
+    gui.инициализация_интерфейса(info_panel = True, ask_for_change_settings = False)
     if gui.язык_игры == 1:
         координата_x = int(input('Введите координату X: '))
         координата_y = int(input('Введите координату Y: '))
