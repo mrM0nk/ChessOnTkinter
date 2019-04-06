@@ -11,6 +11,7 @@ import time
 фигуры = None
 язык_игры = None
 цветовая_схема = None
+ширина_информационной_панели = None
 
 
 def инициализация_интерфейса(info_panel):
@@ -36,21 +37,18 @@ def инициализация_интерфейса(info_panel):
         окно.resizable(0, 0)
 
     def отрисовка_холста(фон_игры, info_panel = False):
-        global холст, контейнер1, контейнер2
+        global холст, ширина_информационной_панели
         ekranX = (окно.winfo_screenwidth())
         ekranY = (окно.winfo_screenheight())
-
         контейнер1 = Frame(master=окно)
-
         if not info_panel:
             контейнер1.place(x=0, y=0, width=ekranX * 9 // 10, height=ekranY * 9 // 10)
-
+            ширина_информационной_панели = 0
         if info_panel:
-            ширина_информационной_панели = ekranX // 10
+            ширина_информационной_панели = ekranX // 8
             контейнер1.place(x=0, y=0, width=ekranX * 9 // 10 - ширина_информационной_панели, height=ekranY * 9 // 10)
             контейнер2 = Frame(master = окно, background = "#CFFBA8")
             контейнер2.place(x = ekranX * 9 // 10 - ширина_информационной_панели, y = 0, width = ширина_информационной_панели, height = ekranY * 9 // 10)
-
         холст = Canvas(master=контейнер1)
         холст.pack(fill=BOTH, expand=True)
         if фон_игры == '1':
@@ -76,7 +74,7 @@ def инициализация_интерфейса(info_panel):
         global отступ_x, отступ_y, клетка
         ekranX = (окно.winfo_screenwidth())
         клетка = переменная_ширины_экрана // 11
-        отступ_x = ekranX * 9 / 20 - клетка * 4
+        отступ_x = ekranX * 9 // 20 - клетка * 4 - ширина_информационной_панели // 2
         отступ_y = клетка * 3 // 2
 
     def импорт_изображений():
