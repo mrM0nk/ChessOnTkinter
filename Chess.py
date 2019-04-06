@@ -1,10 +1,10 @@
-import guiChess
+import gui
 
 
 if __name__ == '__main__':
-    guiChess.инициализация_интерфейса(info_panel = True)
+    gui.инициализация_интерфейса(info_panel = True)
 
-    guiChess.отрисовка_шахмат()
+    gui.отрисовка_шахмат()
 
 
-    guiChess.окно.mainloop()
+    gui.окно.mainloop()
