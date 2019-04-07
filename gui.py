@@ -10,25 +10,25 @@ import time
 отступ_y = None
 клетка = None
 фигуры = None
-язык_игры = 1
+язык_игры = "rus"
 ширина_информационной_панели = 0
 цветовая_схема = 2
 цветовая_палитра_клеток = {1: ["#E8E8E8", "#B0B0B0"], 2: ["#C9862F", "#6F1203"], 3: ["#FFC4D7", "#6A7250"]}
 палитра_подсветки = ["#F7C8F3", "#E1C191", "#E8E8E8"]
 задержка_анимации = 0.5
+ввод_текста = {"rus":{"текст_фона": "Выберите номер фона: 1. Природа, 2. Шахматы, 3. Космос: ",
+                      "текст_цветовой_схемы": "Выберите цветовую схему доски: 1. Светлая, 2. Обычная, 3. Гламур: "},
+               "en":{"текст_фона": "Select background number: 1. Nature, 2. Chess, 3. Space: ",
+                     "текст_цветовой_схемы": "Choose board color scheme: 1. Light, 2. Ordinary, 3. Glamour: "}}
 
 
 def инициализация_интерфейса(info_panel, ask_for_change_settings=False, animation_delay=0.5):
 
     def настройки_игры():
         global язык_игры, цветовая_схема
-        язык_игры = int(input("Select number your language? 1. Русский, 2. English: "))
-        if язык_игры == 1:
-            фон_игры = int(input("Выберите номер фона: 1. Природа, 2. Шахматы, 3. Космос: "))
-            цветовая_схема = int(input("Выберите цветовую схему доски: 1. Светлая, 2. Обычная, 3. Гламур: "))
-        else:
-            фон_игры = int(input("Select background number: 1. Nature, 2. Chess, 3. Space: "))
-            цветовая_схема = int(input("Choose board color scheme: 1. Light, 2. Ordinary, 3. Glamour: "))
+        язык_игры = input("Select number your language? rus. Русский, en. English: ")
+        фон_игры = int(input(ввод_текста.get(язык_игры).get("текст_фона")))
+        цветовая_схема = int(input(ввод_текста.get(язык_игры).get("текст_цветовой_схемы")))
         return фон_игры
 
     def создание_окна():
@@ -36,7 +36,6 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
         окно = Tk()
         ekranX = (окно.winfo_screenwidth())
         ekranY = (окно.winfo_screenheight())
-#        окно.config(width=ekranX * 9 // 10, height=ekranY * 9 // 10, background="#CFFBA8")
         окно.title("Chess")
         окно.geometry("{}x{}+{}+{}".format(ekranX * 9 // 10, ekranY * 9 // 10, (ekranX - (ekranX * 9 // 10)) // 2, 0))
         окно.resizable(0, 0)
@@ -266,7 +265,7 @@ def перемести_фигуру(короткий_путь, номера_хо
 
 
 def ввод_координат_коню():
-    if язык_игры == 1:
+    if язык_игры == "rus":
         холст.create_text(отступ_x + клетка * 4, отступ_y - клетка // 2.2, font=("Purisa", клетка // 3),
                           text="Наведите мышкой на стартовую клетку", fill="blue")
     else:
@@ -278,7 +277,7 @@ def ввод_координат_коню():
     холст.create_rectangle(отступ_x + старт_x * клетка - клетка, отступ_y - старт_y * клетка + клетка * 8,
                            отступ_x + старт_x * клетка, отступ_y - старт_y * клетка + клетка * 9, width=клетка//11,
                            outline="blue")
-    if язык_игры == 1:
+    if язык_игры == "rus":
         холст.create_text(отступ_x + клетка * 4, отступ_y + клетка * 17 // 2, font=("Purisa", клетка // 3),
                           text="Наведите мышкой на финишную клетку", fill="red")
     else:
