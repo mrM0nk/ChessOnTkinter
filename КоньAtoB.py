@@ -27,11 +27,10 @@ def задача_коня(старт_x, старт_y, финиш_х, финиш_
             return короткий_путь
 
 
-if __name__ == '__main__':
-    gui.инициализация_интерфейса(info_panel = True, ask_for_change_settings = False, animation_delay = 0.5)
+if __name__ == "__main__":
+    gui.инициализация_интерфейса(info_panel=True, ask_for_change_settings=False, animation_delay=0.5)
     старт_x, старт_y, финиш_х, финиш_у = gui.ввод_координат_коню()
     короткий_путь = задача_коня(старт_x, старт_y, финиш_х, финиш_у)
-    gui.перемести_фигуру(короткий_путь)
-
+    gui.перемести_фигуру(короткий_путь, номера_ходов=False)
 
     gui.окно.mainloop()
