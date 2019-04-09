@@ -62,8 +62,15 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             контейнер1.place(x=0, y=0, width=ekranX * 9 // 10 - ширина_панели, height=ekranY * 9 // 10)
             контейнер2 = Frame(master=окно, background="#CFFBA8")
             контейнер2.place(x=ekranX * 9 // 10 - ширина_панели, y=0, width=ширина_панели, height=ekranY * 9 // 10)
+            холст1 = Canvas(master=контейнер2)
+            холст1.pack(fill=BOTH, expand=True)
+            фон1 = Image.open("background\image{}{}.jpg".format(фон_игры, фон_игры))
+            фон1.thumbnail((ekranX, ekranY), Image.ANTIALIAS)
+            холст1.image = ImageTk.PhotoImage(фон1)
+            холст1.create_image(ширина_панели, 0, image=холст1.image, anchor="ne")
+
             шаг = ekranY * 9 // 250
-            метка_величина_задержки = Label(master=контейнер2, text="Задержка, с:", background="#CFFBA8")
+            метка_величина_задержки = Label(master=контейнер2, text="Задержка, с:")
             метка_величина_задержки.place(x=ширина_панели // 8, y=шаг)
 
             задержка_анимации = Spinbox(master=контейнер2, from_=0, to=1, increment=0.1)
@@ -75,8 +82,8 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             кнопка_очистки = Button(master=контейнер2, text="Очистить", foreground="black")
             кнопка_очистки.place(x=ширина_панели // 8, y=шаг * 4, width=ширина_панели * 3 // 4)
 
-            метка_цвет = Label(master=контейнер2, text="Цвет шахмат:", background="#CFFBA8")
-            метка_цвет.place(x=ширина_панели // 8, y=шаг * 5)
+            метка_цвет = Label(master=контейнер2, text="Цвет шахмат:")
+            метка_цвет.place(x=ширина_панели // 8, y=шаг * 6)
 
             цвета = ["Белые", "Черные"]
 
@@ -85,7 +92,7 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
 
             for i, цвет in enumerate(цвета):
                 b = Radiobutton(master=контейнер2, text=цвет, variable=цвет_шахмат_игрока, value=цвет, indicatoron=0)
-                b.place(x=ширина_панели // 8, y=шаг * (6 + i), width=ширина_панели * 3 // 4)
+                b.place(x=ширина_панели // 8, y=шаг * (7 + i), width=ширина_панели * 3 // 4)
 
 
 
