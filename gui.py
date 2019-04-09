@@ -67,7 +67,8 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             фон1 = Image.open("background\image{}{}.jpg".format(фон_игры, фон_игры))
             фон1.thumbnail((ekranX, ekranY), Image.ANTIALIAS)
             холст1.image = ImageTk.PhotoImage(фон1)
-            холст1.create_image(ширина_панели, 0, image=холст1.image, anchor="ne")
+            холст1.create_image((-ekranX * 9 // 10 - ширина_панели) // 2 + ширина_панели * 1.1, ekranY * 9 // 20,
+                                image=холст1.image, anchor="center")
 
             шаг = ekranY * 9 // 250
             метка_величина_задержки = Label(master=контейнер2, text="Задержка, с:")
