@@ -92,7 +92,7 @@ def свободные_клетки(координата_x, координата
 
 def btn_click(event):
     try:
-        gui.кнопка_расчитать.unbind('<Button-1>')
+        gui.кнопка_старт.unbind('<Button-1>')
         gui.очистка_доски()
 
         координата_x, координата_y, фигура = gui.ввод_координат_подсветки()
@@ -100,7 +100,7 @@ def btn_click(event):
         коорд_свободных_клеток = свободные_клетки(координата_x, координата_y, фигура)
         gui.подсветить_клетки(коорд_свободных_клеток)
 
-        gui.кнопка_расчитать.bind('<Button-1>', btn_click)
+        gui.кнопка_старт.bind('<Button-1>', btn_click)
 
     except:
         pass
@@ -110,6 +110,6 @@ if __name__ == "__main__":
     gui.инициализация_интерфейса(info_panel=True, ask_for_change_settings=False)
     gui.отрисовка_доски()
 
-    gui.кнопка_расчитать.bind('<Button-1>', btn_click)
+    gui.кнопка_старт.bind('<Button-1>', btn_click)
 
     gui.окно.mainloop()

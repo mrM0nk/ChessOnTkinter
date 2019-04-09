@@ -1,4 +1,4 @@
-from tkinter import Tk, Canvas, BOTH, Frame, Label, Spinbox, Button
+from tkinter import Tk, Canvas, BOTH, Frame, Label, Spinbox, Button, StringVar, Radiobutton
 from math import ceil
 from PIL import ImageTk, Image
 import time
@@ -12,15 +12,16 @@ import random
 клетка = None
 фигуры = None
 язык_игры = "rus"
-ширина_информационной_панели = 0
+ширина_панели = 0
 цветовая_схема = 2
 цветовая_палитра_клеток = {1: ["#E8E8E8", "#B0B0B0"], 2: ["#C9862F", "#6F1203"], 3: ["#FFC4D7", "#6A7250"]}
 палитра_подсветки = ["#F7C8F3", "#E1C191", "#E8E8E8"]
 задержка_анимации = 1
-кнопка_расчитать = None
+кнопка_старт = None
+кнопка_очистки = None
 список_фигур_белых = ("ФерзьБ", "КорольБ", "СлонБ", "КоньБ", "ЛадьяБ", "ПешкаБ")
 список_фигур_черных = ("ФерзьЧ", "КорольЧ", "СлонЧ", "КоньЧ", "ЛадьяЧ", "ПешкаЧ")
-цвет_шахмат_игрока = 0
+цвет_шахмат_игрока = "Белые"
 ввод_текста = {"rus": {"текст_фона": "Выберите номер фона: 1. Природа, 2. Шахматы, 3. Космос: ",
                        "текст_цветовой_схемы": "Выберите цветовую схему доски: 1. Светлая, 2. Обычная, 3. Гламур: ",
                        "координаты_конюАБ": ("Наведите мышкой на стартовую клетку", "Наведите мышкой на финишную клетку"),
@@ -50,27 +51,42 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
         окно.resizable(0, 0)
 
     def отрисовка_холста(фон_игры, info_panel=False):
-        global холст, ширина_информационной_панели, задержка_анимации, кнопка_расчитать
+        global холст, ширина_панели, задержка_анимации, кнопка_старт, кнопка_очистки, цвет_шахмат_игрока
         ekranX = (окно.winfo_screenwidth())
         ekranY = (окно.winfo_screenheight())
         контейнер1 = Frame(master=окно)
         if not info_panel:
             контейнер1.place(x=0, y=0, width=ekranX * 9 // 10, height=ekranY * 9 // 10)
         if info_panel:
-            ширина_информационной_панели = ekranX // 8
-            контейнер1.place(x=0, y=0, width=ekranX * 9 // 10 - ширина_информационной_панели, height=ekranY * 9 // 10)
-            контейнер2 = Frame(master = окно, background = "#CFFBA8")
-            контейнер2.place(x = ekranX * 9 // 10 - ширина_информационной_панели, y = 0, width =
-                             ширина_информационной_панели, height = ekranY * 9 // 10)
-
-            метка_величина_задержки = Label(master=контейнер2, text='Задержка, с:', background="#CFFBA8")
-            метка_величина_задержки.place(x=20, y=50)
+            ширина_панели = ekranX // 8
+            контейнер1.place(x=0, y=0, width=ekranX * 9 // 10 - ширина_панели, height=ekranY * 9 // 10)
+            контейнер2 = Frame(master=окно, background="#CFFBA8")
+            контейнер2.place(x=ekranX * 9 // 10 - ширина_панели, y=0, width=ширина_панели, height=ekranY * 9 // 10)
+            шаг = ekranY * 9 // 250
+            метка_величина_задержки = Label(master=контейнер2, text="Задержка, с:", background="#CFFBA8")
+            метка_величина_задержки.place(x=ширина_панели // 8, y=шаг)
 
             задержка_анимации = Spinbox(master=контейнер2, from_=0, to=1, increment=0.1)
-            задержка_анимации.place(x=20, y=70, width=100)
+            задержка_анимации.place(x=ширина_панели // 8, y=шаг * 2, width=ширина_панели * 3 // 4)
 
-            кнопка_расчитать = Button(master=контейнер2, text='Старт', foreground='red')
-            кнопка_расчитать.place(x=20, y=110, width=100)
+            кнопка_старт = Button(master=контейнер2, text="Старт", foreground="red")
+            кнопка_старт.place(x=ширина_панели // 8, y=шаг * 3, width=ширина_панели * 3 // 4)
+
+            кнопка_очистки = Button(master=контейнер2, text="Очистить", foreground="black")
+            кнопка_очистки.place(x=ширина_панели // 8, y=шаг * 4, width=ширина_панели * 3 // 4)
+
+            метка_цвет = Label(master=контейнер2, text="Цвет шахмат:", background="#CFFBA8")
+            метка_цвет.place(x=ширина_панели // 8, y=шаг * 5)
+
+            цвета = ["Белые", "Черные"]
+
+            цвет_шахмат_игрока = StringVar()
+            цвет_шахмат_игрока.set("Белые")
+
+            for i, цвет in enumerate(цвета):
+                b = Radiobutton(master=контейнер2, text=цвет, variable=цвет_шахмат_игрока, value=цвет, indicatoron=0)
+                b.place(x=ширина_панели // 8, y=шаг * (6 + i), width=ширина_панели * 3 // 4)
+
 
 
         холст = Canvas(master=контейнер1)
@@ -78,8 +94,7 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
         фон = Image.open("background\image{}.jpg".format(фон_игры))
         фон.thumbnail((ekranX, ekranY), Image.ANTIALIAS)
         холст.image = ImageTk.PhotoImage(фон)
-        холст.create_image((ekranX * 9 // 10 - ширина_информационной_панели)//2, ekranY * 9 // 20, image=холст.image,
-                           anchor="center")
+        холст.create_image((ekranX * 9 // 10 - ширина_панели)//2, ekranY * 9 // 20, image=холст.image, anchor="center")
 
     def ориентация_экрана():
         ekranX = (окно.winfo_screenwidth())
@@ -94,7 +109,7 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
         global отступ_x, отступ_y, клетка
         ekranX = (окно.winfo_screenwidth())
         клетка = переменная_ширины_экрана // 11
-        отступ_x = ekranX * 9 // 20 - клетка * 4 - ширина_информационной_панели // 2
+        отступ_x = ekranX * 9 // 20 - клетка * 4 - ширина_панели // 2
         отступ_y = клетка * 3 // 2
 
     def импорт_изображений():
@@ -178,10 +193,8 @@ def очистка_доски():
     try:
         for элемент in холст.find_all():
             холст.delete(элемент)
-        ekranX = (окно.winfo_screenwidth())
-        ekranY = (окно.winfo_screenheight())
-        холст.create_image((ekranX * 9 // 10 - ширина_информационной_панели)//2, ekranY * 9 // 20, image=холст.image,
-                           anchor="center")
+        холст.create_image((окно.winfo_screenwidth() * 9 // 10 - ширина_панели)//2, окно.winfo_screenheight() * 9 // 20,
+                           image=холст.image, anchor="center")
         отрисовка_доски()
     except:
         pass
@@ -210,11 +223,11 @@ def отрисовка_шахмат():
                     окно.update_idletasks()
                     окно.update()
 
-        if цвет_шахмат_игрока == 0:
+        if цвет_шахмат_игрока.get() == "Белые":
             переменная = (список_фигур_белых, список_фигур_черных, (2, 1), (7, 8))
             отрисовка_фигур(переменная)
 
-        if цвет_шахмат_игрока == 1:
+        if цвет_шахмат_игрока.get() == "Черные":
             переменная = (список_фигур_черных, список_фигур_белых, (2, 1), (7, 8))
             отрисовка_фигур(переменная)
     except:
