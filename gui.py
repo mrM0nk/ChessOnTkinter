@@ -7,6 +7,7 @@ import random
 
 окно = None
 холст = None
+холст1 = None
 отступ_x = None
 отступ_y = None
 клетка = None
@@ -23,6 +24,8 @@ import random
 цвет_шахмат_игрока = None
 принятая_задача = None
 выбранная_фигура = None
+фон_игры1 = None
+цвет_доски = None
 ввод_текста = {"rus": {"текст_фона": "Выберите номер фона: 1. Природа, 2. Шахматы, 3. Космос: ",
                        "текст_цветовой_схемы": "Выберите цветовую схему доски: 1. Светлая, 2. Обычная, 3. Гламур: ",
                        "координаты_конюАБ": ("Наведите мышкой на стартовую клетку", "Наведите мышкой на финишную клетку"),
@@ -52,7 +55,7 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
         окно.resizable(0, 0)
 
     def отрисовка_холста(фон_игры, info_panel=False):
-        global холст, ширина_панели, задержка_анимации, кнопка_старт, цвет_шахмат_игрока, принятая_задача, фигура
+        global холст, ширина_панели, задержка_анимации, кнопка_старт, цвет_шахмат_игрока, принятая_задача, фигура, фон_игры1, цвет_доски, холст1
         ekranX = (окно.winfo_screenwidth())
         ekranY = (окно.winfo_screenheight())
         контейнер1 = Frame(master=окно)
@@ -116,8 +119,8 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             фон_игры1 = StringVar()
             фон_игры1.set("Шахматы")
 
-            for i, элемент in enumerate(список_фонов):
-                b = Radiobutton(master=контейнер2, text=элемент, variable=фон_игры1, value=элемент, indicatoron=0,
+            for i, элемент_фона in enumerate(список_фонов):
+                b = Radiobutton(master=контейнер2, text=элемент_фона, variable=фон_игры1, value=элемент_фона, indicatoron=0,
                                 font="Arial {}".format(шаг // 3))
                 b.place(x=ширина_панели // 8, y=шаг * (18.5 + i), width=ширина_панели * 3 // 4)
 
@@ -125,8 +128,8 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             цвет_доски = StringVar()
             цвет_доски.set("Обычная")
 
-            for i, элемент in enumerate(цвета_досок):
-                b = Radiobutton(master=контейнер2, text=элемент, variable=цвет_доски, value=элемент, indicatoron=0,
+            for i, элемент_доски in enumerate(цвета_досок):
+                b = Radiobutton(master=контейнер2, text=элемент_доски, variable=цвет_доски, value=элемент_доски, indicatoron=0,
                                 font="Arial {}".format(шаг // 3))
                 b.place(x=ширина_панели // 8, y=шаг * (22 + i), width=ширина_панели * 3 // 4)
 
@@ -234,11 +237,30 @@ def очистка_доски():
     try:
         for элемент in холст.find_all():
             холст.delete(элемент)
+        фон = Image.open("background\image{}.jpg".format(номер_фона()))
+        фон.thumbnail((окно.winfo_screenwidth(), окно.winfo_screenheight()), Image.ANTIALIAS)
+        холст.image = ImageTk.PhotoImage(фон)
         холст.create_image((окно.winfo_screenwidth() * 9 // 10 - ширина_панели)//2, окно.winfo_screenheight() * 9 // 20,
                            image=холст.image, anchor="center")
         отрисовка_доски()
+        for элемент1 in холст1.find_all():
+            холст1.delete(элемент1)
+        фон1 = Image.open("background\image{}{}.jpg".format(номер_фона(), номер_фона()))
+        фон1.thumbnail((окно.winfo_screenwidth(), окно.winfo_screenheight()), Image.ANTIALIAS)
+        холст1.image = ImageTk.PhotoImage(фон1)
+        холст1.create_image((-окно.winfo_screenwidth() * 9 // 10 - ширина_панели) // 2 + ширина_панели * 1.14, окно.winfo_screenheight() * 9 // 20,
+                            image=холст1.image, anchor="center")
     except:
         pass
+
+def номер_фона():
+    if фон_игры1.get() == "Природа":
+        номер_фона = 1
+    if фон_игры1.get() == "Шахматы":
+        номер_фона = 2
+    if фон_игры1.get() == "Космос":
+        номер_фона = 3
+    return номер_фона
 
 
 def отрисовка_шахмат():
