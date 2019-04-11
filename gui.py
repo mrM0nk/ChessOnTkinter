@@ -446,4 +446,5 @@ def перемести_фигуру(короткий_путь, номера_хо
 if __name__ == "__main__":
     инициализация_интерфейса(info_panel=True, ask_for_change_settings=False)
     отрисовка_доски()
+
     окно.mainloop()

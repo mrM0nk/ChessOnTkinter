@@ -46,7 +46,6 @@ if __name__ == "__main__":
     gui.отрисовка_доски()
 
     gui.окно.bind('<Button-3>', gui.позиция)
-
     gui.кнопка_старт.bind('<Button-1>', btn_click)
 
     gui.окно.mainloop()
