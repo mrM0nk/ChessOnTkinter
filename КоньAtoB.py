@@ -27,23 +27,8 @@ def задача_коня(старт_x, старт_y, финиш_х, финиш_
             return короткий_путь
 
 
-def btn_click(event):
-    try:
-        gui.кнопка_старт.unbind('<Button-1>')
-        gui.очистка_доски()
-
-        старт_x, старт_y, финиш_х, финиш_у = gui.ввод_координат_конюАБ()
-        короткий_путь = задача_коня(старт_x, старт_y, финиш_х, финиш_у)
-        gui.перемести_фигуру(короткий_путь, номера_ходов=False)
-
-        gui.кнопка_старт.bind('<Button-1>', btn_click)
-
-    except:
-        pass
-
-
 if __name__ == "__main__":
     gui.инициализация_интерфейса(info_panel=True, ask_for_change_settings=False)
     gui.отрисовка_доски()
-    gui.кнопка_старт.bind('<Button-1>', btn_click)
+
     gui.окно.mainloop()
