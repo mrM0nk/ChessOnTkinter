@@ -83,7 +83,7 @@ def инициализация_интерфейса(info_panel):
             задержка_анимации.place(x=ширина_панели // 2, y=шаг * 1.1, width=ширина_панели * 3 // 4, anchor="center")
 
             кнопка_старт = Button(master=контейнер2, text="Старт", foreground="red", font="Arial {}".format(шаг // 3))
-            кнопка_старт.place(x=ширина_панели // 2, y=шаг * 2.35, width=ширина_панели * 3 // 4, anchor="center")
+            кнопка_старт.place(x=ширина_панели // 2, y=шаг * 2.23, width=ширина_панели * 3 // 4, anchor="center")
 
             метка_цвет = Label(master=контейнер2, text="Цвет шахмат:", foreground="blue",
                                font="Arial {}".format(шаг // 3))
@@ -157,11 +157,13 @@ def инициализация_интерфейса(info_panel):
 
             метка_координат_1 = Label(master=контейнер2, text="Стартовая клетка - нажмите ПКМ", foreground="red",
                                       font="Arial {}".format(шаг // 3))
-            метка_координат_1.place(x=ширина_панели // 2, y=шаг * 23, anchor="center", height=шаг // 1.2)
+            метка_координат_1.place(x=ширина_панели // 2, y=шаг * 23, anchor="center", height=шаг // 1.2,
+                                    width=ширина_панели * 8 // 9)
 
             метка_координат_2 = Label(master=контейнер2, text="Финишная клетка - нажмите ЛКМ", foreground="blue",
                                       font="Arial {}".format(шаг // 3))
-            метка_координат_2.place(x=ширина_панели // 2, y=шаг * 24, anchor="center", height=шаг // 1.2)
+            метка_координат_2.place(x=ширина_панели // 2, y=шаг * 23.8, anchor="center", height=шаг // 1.2,
+                                    width=ширина_панели * 8 // 9)
 
         холст = Canvas(master=контейнер1, background="Black")
         холст.pack(fill=BOTH, expand=True)
@@ -251,12 +253,12 @@ def отрисовка_доски():
         for x in range(0, 8):
             ix += 1
             холст.create_text(отступ_x + клетка * 2 // 4 + клетка * x, отступ_y + клетка * 8 + клетка * 1 // 4,
-                              text=координаты[ix], fill="black")
+                              text=координаты[ix], font="Arial {}".format(клетка // 6), fill="black")
         k_podpisY = 9
         for y in range(0, 8):
             k_podpisY = k_podpisY - 1
             холст.create_text(отступ_x - клетка * 1 // 4, отступ_y + клетка * y + клетка * 2 // 4, text=k_podpisY,
-                              fill="black")
+                              font="Arial {}".format(клетка // 6), fill="black")
 
     отрисовка_полотна_доски()
     отрисовка_клеток()
