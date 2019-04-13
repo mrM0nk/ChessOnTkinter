@@ -68,7 +68,7 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
         if not info_panel:
             контейнер1.place(x=0, y=0, width=ekranX * 9 // 10, height=ekranY * 9 // 10)
         if info_panel:
-            ширина_панели = ekranX // 7
+            ширина_панели = ekranX // 6.5
             контейнер1.place(x=0, y=0, width=ekranX * 9 // 10 - ширина_панели, height=ekranY * 9 // 10)
             контейнер2 = Frame(master=окно, background="#CFFBA8")
             контейнер2.place(x=ekranX * 9 // 10 - ширина_панели, y=0, width=ширина_панели, height=ekranY * 9 // 10)
@@ -77,22 +77,22 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             фон1 = Image.open("background\image{}{}.jpg".format(фон_игры, фон_игры))
             фон1.thumbnail((ekranX, ekranY), Image.ANTIALIAS)
             холст1.image = ImageTk.PhotoImage(фон1)
-            холст1.create_image((-ekranX * 9 // 10 - ширина_панели) // 2 + ширина_панели * 1.14, ekranY * 9 // 20,
+            холст1.create_image((-ekranX * 9 // 10 - ширина_панели) // 2 + ширина_панели * 1.16, ekranY * 9 // 20,
                                 image=холст1.image, anchor="center")
 
-            шаг = ekranY * 9 // 250
+            шаг = ekranY // 27
 
             метка_величина_задержки = Label(master=контейнер2, text="Задержка, с:", font="Arial {}".format(шаг // 3))
-            метка_величина_задержки.place(x=ширина_панели // 8, y=шаг // 8)
+            метка_величина_задержки.place(x=ширина_панели // 2, y=шаг//1.9, anchor="center", height=шаг // 1.2)
 
             задержка_анимации = Spinbox(master=контейнер2, from_=0, to=1, increment=0.1)
-            задержка_анимации.place(x=ширина_панели // 8, y=шаг, width=ширина_панели * 3 // 4)
+            задержка_анимации.place(x=ширина_панели // 2, y=шаг * 1.1, width=ширина_панели * 3 // 4, anchor="center")
 
             кнопка_старт = Button(master=контейнер2, text="Старт", foreground="red", font="Arial {}".format(шаг // 3))
-            кнопка_старт.place(x=ширина_панели // 8, y=шаг * 2, width=ширина_панели * 3 // 4)
+            кнопка_старт.place(x=ширина_панели // 2, y=шаг * 2.35, width=ширина_панели * 3 // 4, anchor="center")
 
             метка_цвет = Label(master=контейнер2, text="Цвет шахмат:", font="Arial {}".format(шаг // 3))
-            метка_цвет.place(x=ширина_панели // 8, y=шаг * 3.2)
+            метка_цвет.place(x=ширина_панели // 2, y=шаг * 3.4, anchor="center", height=шаг // 1.2)
 
             цвета = ["Белые", "Черные"]
             цвет_шахмат_игрока = StringVar()
@@ -101,7 +101,10 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             for i, цвет in enumerate(цвета):
                 b = Radiobutton(master=контейнер2, text=цвет, variable=цвет_шахмат_игрока, value=цвет, indicatoron=0,
                                 font="Arial {}".format(шаг // 3))
-                b.place(x=ширина_панели // 8, y=шаг * (4 + i), width=ширина_панели * 3 // 4)
+                b.place(x=ширина_панели // 3 + i * ширина_панели // 3, y=шаг * 4.2, width=ширина_панели // 3, height=шаг // 1.2, anchor="center")
+
+            метка_задача = Label(master=контейнер2, text="Выбор задачи:", font="Arial {}".format(шаг // 3))
+            метка_задача.place(x=ширина_панели // 2, y=шаг * 5.2, anchor="center", height=шаг // 1.2)
 
             задачи = ["Очистить_поле", "Отрисовать_шахматы", "Подсветить_клетки", "Переместить_фигуру", "Обойти_доску"]
             принятая_задача = StringVar()
@@ -110,7 +113,10 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             for i, задача in enumerate(задачи):
                 b = Radiobutton(master=контейнер2, text=задача, variable=принятая_задача, value=задача, indicatoron=0,
                                 font="Arial {}".format(шаг // 3))
-                b.place(x=ширина_панели // 8, y=шаг * (6.5 + i), width=ширина_панели * 3 // 4)
+                b.place(x=ширина_панели // 2, y=шаг // 1.2 * (7.3 + i), width=ширина_панели * 3 // 4, height=шаг // 1.2, anchor="center")
+
+            метка_фигуры = Label(master=контейнер2, text="Выбор фигуры:", font="Arial {}".format(шаг // 3))
+            метка_фигуры.place(x=ширина_панели // 2, y=шаг * 10.25, anchor="center", height=шаг // 1.2)
 
             список_фигур = ["Ферзь", "Король", "Слон", "Конь", "Ладья", "Пешка"]
             выбранная_фигура = StringVar()
@@ -119,7 +125,10 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             for i, элемент in enumerate(список_фигур):
                 b = Radiobutton(master=контейнер2, text=элемент, variable=выбранная_фигура, value=элемент,
                                 indicatoron=0, font="Arial {}".format(шаг // 3))
-                b.place(x=ширина_панели // 8, y=шаг * (12 + i), width=ширина_панели * 3 // 4)
+                b.place(x=ширина_панели // 2, y=шаг // 1.2 * (13.4 + i), width=ширина_панели * 3 // 4, height=шаг // 1.2, anchor="center")
+
+            метка_фона = Label(master=контейнер2, text="Выбор фона:", font="Arial {}".format(шаг // 3))
+            метка_фона.place(x=ширина_панели // 2, y=шаг * 16.15, anchor="center", height=шаг // 1.2)
 
             список_фонов = ["Природа", "Шахматы", "Космос"]
             фон_игры1 = StringVar()
@@ -128,7 +137,10 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             for i, элемент_фона in enumerate(список_фонов):
                 b = Radiobutton(master=контейнер2, text=элемент_фона, variable=фон_игры1, value=элемент_фона,
                                 indicatoron=0, font="Arial {}".format(шаг // 3))
-                b.place(x=ширина_панели // 8, y=шаг * (18.5 + i), width=ширина_панели * 3 // 4)
+                b.place(x=ширина_панели // 2, y=шаг // 1.2 * (20.55 + i), width=ширина_панели * 3 // 4, height=шаг // 1.2, anchor="center")
+
+            метка_доски = Label(master=контейнер2, text="Выбор цвета доски:", font="Arial {}".format(шаг // 3))
+            метка_доски.place(x=ширина_панели // 2, y=шаг * 19.55, anchor="center", height=шаг // 1.2)
 
             цвета_досок = ["Светлая", "Обычная", "Гламур"]
             цвет_доски = StringVar()
@@ -137,7 +149,13 @@ def инициализация_интерфейса(info_panel, ask_for_change_s
             for i, элемент_доски in enumerate(цвета_досок):
                 b = Radiobutton(master=контейнер2, text=элемент_доски, variable=цвет_доски, value=элемент_доски,
                                 indicatoron=0, font="Arial {}".format(шаг // 3))
-                b.place(x=ширина_панели // 8, y=шаг * (22 + i), width=ширина_панели * 3 // 4)
+                b.place(x=ширина_панели // 2, y=шаг // 1.2 * (24.7 + i), width=ширина_панели * 3 // 4, height=шаг // 1.2, anchor="center")
+
+            метка_координат_1 = Label(master=контейнер2, text="Стартовая клетка - нажмите ПКМ", foreground="red", font="Arial {}".format(шаг // 3))
+            метка_координат_1.place(x=ширина_панели // 2, y=шаг * 23, anchor="center", height=шаг // 1.2)
+
+            метка_координат_2 = Label(master=контейнер2, text="Финишная клетка - нажмите ЛКМ", foreground="blue", font="Arial {}".format(шаг // 3))
+            метка_координат_2.place(x=ширина_панели // 2, y=шаг * 24, anchor="center", height=шаг // 1.2)
 
         холст = Canvas(master=контейнер1, background="Black")
         холст.pack(fill=BOTH, expand=True)
@@ -276,7 +294,7 @@ def очистка_доски():
         фон1 = Image.open("background\image{}{}.jpg".format(номер_фона(), номер_фона()))
         фон1.thumbnail((окно.winfo_screenwidth(), окно.winfo_screenheight()), Image.ANTIALIAS)
         холст1.image = ImageTk.PhotoImage(фон1)
-        холст1.create_image((-окно.winfo_screenwidth() * 9 // 10 - ширина_панели) // 2 + ширина_панели * 1.14,
+        холст1.create_image((-окно.winfo_screenwidth() * 9 // 10 - ширина_панели) // 2 + ширина_панели * 1.16,
                             окно.winfo_screenheight() * 9 // 20, image=холст1.image, anchor="center")
     except:
         pass
