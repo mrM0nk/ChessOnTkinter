@@ -89,9 +89,3 @@ def свободные_клетки(координата_x, координата
                     коорд_свободных_клеток.append(клеточка)
     return коорд_свободных_клеток
 
-
-if __name__ == "__main__":
-    gui.инициализация_интерфейса(info_panel=True, ask_for_change_settings=False)
-    gui.отрисовка_доски()
-
-    gui.окно.mainloop()

@@ -68,9 +68,3 @@ def задача_коня(старт_x, старт_y, финиш_х, финиш_
             короткий_путь.reverse()
             return короткий_путь
 
-
-if __name__ == "__main__":
-    gui.инициализация_интерфейса(info_panel=True, ask_for_change_settings=False)
-    gui.отрисовка_доски()
-
-    gui.окно.mainloop()

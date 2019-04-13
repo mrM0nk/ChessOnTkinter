@@ -53,9 +53,3 @@ def обход_доски( старт_x, старт_y, type_figure = 1):
         i += 1
     return пройденные_клетки
 
-
-if __name__ == "__main__":
-    gui.инициализация_интерфейса(info_panel=True, ask_for_change_settings=False)
-    gui.отрисовка_доски()
-
-    gui.окно.mainloop()

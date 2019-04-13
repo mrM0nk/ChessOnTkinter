@@ -42,7 +42,7 @@ def btn_click(event):
 
 
 if __name__ == "__main__":
-    gui.инициализация_интерфейса(info_panel=True, ask_for_change_settings=False)
+    gui.инициализация_интерфейса(info_panel=True)
     gui.отрисовка_доски()
 
     gui.окно.bind('<Button-3>', gui.позиция)
